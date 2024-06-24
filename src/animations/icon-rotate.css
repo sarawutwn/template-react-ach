@@ -1,0 +1,29 @@
+
+.icon-animation .icon-animated {
+    transition: none;
+  }
+  
+  .icon-animation:hover .icon-animated {
+    animation: rotateIcon 0.3s forwards;  
+    margin-left: -5px;
+  }
+
+  .icon-animation:hover h6 {
+    margin-left: -5px;
+  }
+
+  .icon-animation:hover {
+    border-left: 5px solid #f89922;
+  }
+  
+  @keyframes rotateIcon {
+    0% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(25deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }

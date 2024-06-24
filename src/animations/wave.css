@@ -1,0 +1,45 @@
+.wave--wrapper {
+    height: 100%;
+    padding-bottom: -20px;
+    border-radius: 5px;
+    background-image: linear-gradient(to top, #ffffff 0%, #ffffff 100%);
+    overflow: hidden;
+    z-index: 100;
+    position: relative;
+  }
+  
+  .wave-animation {
+    width: 1000px;
+    height: 1025px;
+    position: absolute;
+    border-radius: 35%;
+    background-size: cover;
+    animation: wave 11s infinite linear;
+    transform: rotate(8deg);
+    
+  }
+  .yellow {
+    background: #ffd3442d;
+  }
+
+  .blue {
+    background: hsla(208, 100%, 63%, 0.154);
+  }
+
+  .red {
+    background: hsla(4, 100%, 63%, 0.154);
+  }
+
+  .mint {
+    background: hsla(165, 100%, 63%, 0.154);
+  }
+  
+  @keyframes wave {
+    from {
+      transform: rotate(0deg);
+    }
+    from {
+      transform: rotate(360deg);
+    }
+  }
+  

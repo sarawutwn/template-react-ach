@@ -1,0 +1,36 @@
+variables:
+  CI_COMMIT_SHORT_SHA: $CI_COMMIT_SHORT_SHA
+  CI_COMMIT_BRANCH: $CI_COMMIT_BRANCH
+  PROJECT_IMAGE: p-crm-app
+  RUNNER_TAG: build-acg
+  GITLAB_USER: $GITLAB_USER
+  GITLAB_TOKEN: $GITLAB_TOKEN
+  GITPATH: https://${GITLAB_USER}:${GITLAB_TOKEN}@gitlab.com:ach-dev/crm-app.git
+  DOCKER_HOST: unix:///var/run/docker.sock
+  DOCKER_TLS_CERTDIR: ""
+  DOCKER_DRIVER: overlay2
+  CI_DEBUG_TRACE: "true"
+
+stages:
+  - build
+#  - deploy
+
+before_script:
+  - docker login -u $GITLAB_USER -p $GITLAB_TOKEN $CI_REGISTRY
+
+build_uat:
+  stage: build
+  script:
+    - rm -rf .env
+    - echo 'VITE_HOSTNAME="https://crm-clik-api.ach.co.th"' >> .env
+#    - echo 'VITE_LIFF_ID="1657884069-DLV8qnKn"' >> .env
+#    - echo 'REACT_APP_GOOGLE_MAP_API_KEY = "AIzaSyBbutGc74v2pli5uGTppj6R-l2-XXsNvaM"' >> .env
+    - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_BRANCH -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_BRANCH
+  tags:
+    - ${RUNNER_TAG}
+
+  only:
+    - main
+
